@@ -1,0 +1,23 @@
+{
+  "name": "serverorcus",
+  "version": "1.0.0",
+  "description": "server for Orcus",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "unknown",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "i18n": "^0.13.3",
+    "mongoose": "^6.0.9",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "request": "^2.88.2",
+    "routes": "^2.1.0"
+  }
+}

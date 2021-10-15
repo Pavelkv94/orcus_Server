@@ -1,9 +1,7 @@
 const express = require('express');
-const Posts = require('./models/posts');
+const Post = require('./models/post');
 const server = express();
 const Category = require('./models/categories');
-
-
 
 server.post('/categories', (req, res) => {
   const { title } = req.body;
@@ -20,11 +18,34 @@ server.post('/categories', (req, res) => {
 });
 
 server.get('/categories', (_req, res) => {
-  Category.find({})
-       .exec((err, data) => {
-      if (err) return res.status(400).json({ err });
-      res.json(data);
-    });
+  Category.find({}).exec((err, data) => {
+    if (err) return res.status(400).json({ err });
+    res.json(data);
+  });
+});
+
+server.get('/posts', (_req, res) => {
+  Post.find({}).exec((err, data) => {
+    if (err) return res.status(400).json({ err });
+    res.json(data);
+  });
+});
+
+server.post('/posts', (req, res) => {
+  const { slug, title, category, text } = req.body;
+  let newPost = new Post();
+  newPost.title = title;
+  newPost.slug = slug;
+  newPost.category = category;
+  newPost.text = text;
+  newPost.save((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err
+      });
+    }
+    res.json(data);
+  });
 });
 
 // server.post('/dodo', (req, res) => {
@@ -50,7 +71,7 @@ server.get('/categories', (_req, res) => {
 // 	  res.json(data);
 // 	});
 //   });
-  
+
 //   server.get('/dodo', (_req, res) => {
 // 	User.find({}).exec((err, data) => {
 // 	  if (err) return res.status(400).json({ error });

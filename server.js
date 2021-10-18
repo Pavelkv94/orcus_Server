@@ -6,7 +6,7 @@ const Router = require("./routes")
 const express = require('express');
 const mongoose = require('mongoose');
 
-
+const port = process.env.PORT || 3002;
 
 
 // Установим подключение по умолчанию
@@ -33,7 +33,7 @@ server.use(cors({ origin: "http://localhost:3000" }))
 server.use(express.json());
 server.use(Router);
 
-server.listen(3002, () => {
+server.listen(port, () => {
   console.log('Server is running at port 3002');
 });
 

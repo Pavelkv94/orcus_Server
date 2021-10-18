@@ -62,6 +62,9 @@ server.get('/main/:id', (req, res) => {
   });
 });
 
+server.get('/test', (_req, res) => {
+	res.end("HEllo")
+  });
 // server.post('/dodo', (req, res) => {
 // 	const { name, age } = req.body;
 // 	let newUser = new User();

@@ -48,6 +48,20 @@ server.post('/posts', (req, res) => {
   });
 });
 
+server.get('/posts/:slug', (req, res) => {
+  Post.find({ category: req.params.slug }).exec((err, data) => {
+    if (err) return res.status(400).json({ err });
+    res.json(data);
+  });
+});
+
+server.get('/main/:id', (req, res) => {
+  Post.find({ _id: req.params.id }).exec((err, data) => {
+    if (err) return res.status(400).json({ err });
+    res.json(data);
+  });
+});
+
 // server.post('/dodo', (req, res) => {
 // 	const { name, age } = req.body;
 // 	let newUser = new User();

@@ -30,7 +30,7 @@ db.once('open', function () {
 });
 
 const server = express();
-server.use(cors({ origin: "http://localhost:3000" }))
+server.use(cors({ origin: "https://orcuserver.herokuapp.com/" }))
 server.use(express.json());
 server.use(Router);
 

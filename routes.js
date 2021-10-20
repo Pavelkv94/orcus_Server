@@ -17,6 +17,21 @@ server.post('/categories', (req, res) => {
   });
 });
 
+// server.put('/categories', (req, res) => {
+//   const { newPost, category } = req.body;
+//   Category.find({ title: category }, async function (err, data) {
+//     if (err) {
+//       return res.status(400).json({ error });
+//     } else {
+//       await Category.updateOne(
+//         {$push : {posts: newPost} }
+//       );
+//       console.log('update category success');
+//       res.json(data);
+//     }
+//   });
+// });
+
 server.get('/categories', (_req, res) => {
   Category.find({}).exec((err, data) => {
     if (err) return res.status(400).json({ err });
@@ -32,10 +47,9 @@ server.get('/posts', (_req, res) => {
 });
 
 server.post('/posts', (req, res) => {
-  const { slug, title, category, text } = req.body;
+  const { title, category, text } = req.body;
   let newPost = new Post();
   newPost.title = title;
-  newPost.slug = slug;
   newPost.category = category;
   newPost.text = text;
   newPost.save((err, data) => {
@@ -48,13 +62,6 @@ server.post('/posts', (req, res) => {
   });
 });
 
-server.get('/posts/:slug', (req, res) => {
-  Post.find({ category: req.params.slug }).exec((err, data) => {
-    if (err) return res.status(400).json({ err });
-    res.json(data);
-  });
-});
-
 server.get('/main/:id', (req, res) => {
   Post.find({ _id: req.params.id }).exec((err, data) => {
     if (err) return res.status(400).json({ err });
@@ -63,7 +70,7 @@ server.get('/main/:id', (req, res) => {
 });
 
 server.get('/test', (_req, res) => {
-	res.end("HEllo")
-  });
+  res.end('HEllo');
+});
 
 module.exports = server;

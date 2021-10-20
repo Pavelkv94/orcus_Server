@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-  slug: {
-    type: String
-  },
+
   title: {
     type: String
   },

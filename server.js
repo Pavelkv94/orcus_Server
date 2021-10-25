@@ -6,7 +6,7 @@ const Router = require("./routes")
 const express = require('express');
 const mongoose = require('mongoose');
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 8080;
 
 
 // Установим подключение по умолчанию
@@ -41,22 +41,6 @@ server.listen(port, () => {
 
 
 
-
-
-
-//   server.post("/categories", verifyToken, (req, res) => {
-//     const { name } = req.body;
-//     let newCategory = new Category();
-//     newCategory.name = name;
-//     newCategory.save((err, result) => {
-//       if (err) {
-//         return res.status(400).json({
-//           error: err,
-//         });
-//       }
-//       res.json(result);
-//     });
-//   });
 // const port = process.env.PORT || 3002;
 // const username = 'pavelkv94';
 

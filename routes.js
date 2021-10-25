@@ -73,4 +73,15 @@ server.get('/test', (_req, res) => {
   res.end('HEllo');
 });
 
+server.put("/main/:id", (req, res) => {
+  Blog.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
+    if (err) {
+      return res.status(400).json({ error });
+    } else {
+      console.log("update success");
+      res.json(data);
+    }
+  });
+});
+
 module.exports = server;

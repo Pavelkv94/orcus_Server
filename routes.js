@@ -4,9 +4,9 @@ const server = express();
 const Category = require('./models/categories');
 
 server.post('/categories', (req, res) => {
-  const { title } = req.body;
+//   const { title } = req.body;
   let newCat = new Category();
-  newCat.title = title;
+  newCat.title = req.body.title;
   newCat.save((err, data) => {
     if (err) {
       return res.status(400).json({

@@ -10,8 +10,8 @@ const port = process.env.PORT || 8080;
 
 // Установим подключение по умолчанию
 mongoose
-  .connect(`mongodb://127.0.0.1/orcusDataBase`)
-// .connect("mongodb+srv://pavelkv94:157842@clusterfortgbot.hi5sp.mongodb.net/Orcus?retryWrites=true&w=majority")
+//   .connect(`mongodb://127.0.0.1/orcusDataBase`)
+.connect("mongodb+srv://pavelkv94:157842@clusterfortgbot.hi5sp.mongodb.net/Orcus?retryWrites=true&w=majority")
   .then(() => console.log('DB connected'))
   .catch((err) => {
     console.log(err);

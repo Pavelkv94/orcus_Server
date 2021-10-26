@@ -29,6 +29,7 @@ db.once('open', function () {
 });
 
 const server = express();
+server.use(cors({ origin: "http://localhost:3000" }))
 server.use(cors({ origin: "https://pavelkv94.github.io/orcus_redeploy/" }))
 server.use(express.json());
 server.use(Router);

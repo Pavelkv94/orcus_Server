@@ -30,7 +30,7 @@ db.once('open', function () {
 
 const server = express();
 server.use(cors({ origin: "http://localhost:3000" }))
-server.use(cors({ origin: "https://pavelkv94.github.io/orcus_redeploy/" }))
+// server.use(cors({ origin: "https://pavelkv94.github.io/orcus_redeploy/" }))
 server.use(express.json());
 server.use(Router);
 
@@ -38,7 +38,13 @@ server.listen(port, () => {
   console.log('Server is running at port 3002');
 });
 
-
+server.use(express.static('public', {
+  setHeaders: function setHeaders(res, path, stat) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+  }
+}))
 
 
 // const port = process.env.PORT || 3002;

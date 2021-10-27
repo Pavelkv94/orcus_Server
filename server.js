@@ -6,7 +6,7 @@ const Router = require("./routes")
 const express = require('express');
 const mongoose = require('mongoose');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3002;
 
 // Установим подключение по умолчанию
 mongoose

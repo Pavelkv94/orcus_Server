@@ -2,6 +2,7 @@ const express = require('express');
 const Post = require('./models/post');
 const server = express();
 const Category = require('./models/categories');
+const User = require('./models/user');
 
 server.post('/categories', (req, res) => {
   const { title } = req.body;
@@ -17,20 +18,6 @@ server.post('/categories', (req, res) => {
   });
 });
 
-// server.put('/categories', (req, res) => {
-//   const { newPost, category } = req.body;
-//   Category.find({ title: category }, async function (err, data) {
-//     if (err) {
-//       return res.status(400).json({ error });
-//     } else {
-//       await Category.updateOne(
-//         {$push : {posts: newPost} }
-//       );
-//       console.log('update category success');
-//       res.json(data);
-//     }
-//   });
-// });
 
 server.get('/categories', (_req, res) => {
   Category.find({}).exec((err, data) => {
@@ -46,6 +33,13 @@ server.get('/posts', (_req, res) => {
   });
 });
 
+server.get('/shortPosts', (_req, res) => {
+	Post.find({}).exec((err, data) => {
+	  if (err) return res.status(400).json({ err });
+	  res.json(data.map(o=>{return {title: o.title, _id: o._id, category: o.category}}));
+	//  console.log(data.map(o=>{return {title: o.title, _id: o._id}}))
+	});
+  });
 server.post('/posts', (req, res) => {
   const { title, category, text } = req.body;
   let newPost = new Post();
@@ -83,5 +77,6 @@ server.put("/main/:id", (req, res) => {
     }
   });
 });
+
 
 module.exports = server;

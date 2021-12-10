@@ -18,7 +18,6 @@ server.post('/categories', (req, res) => {
   });
 });
 
-
 server.get('/categories', (_req, res) => {
   Category.find({}).exec((err, data) => {
     if (err) return res.status(400).json({ err });
@@ -34,12 +33,16 @@ server.get('/posts', (_req, res) => {
 });
 
 server.get('/shortPosts', (_req, res) => {
-	Post.find({}).exec((err, data) => {
-	  if (err) return res.status(400).json({ err });
-	  res.json(data.map(o=>{return {title: o.title, _id: o._id, category: o.category}}));
-	//  console.log(data.map(o=>{return {title: o.title, _id: o._id}}))
-	});
+  Post.find({}).exec((err, data) => {
+    if (err) return res.status(400).json({ err });
+    res.json(
+      data.map((o) => {
+        return { title: o.title, _id: o._id, category: o.category };
+      })
+    );
+    //  console.log(data.map(o=>{return {title: o.title, _id: o._id}}))
   });
+});
 server.post('/posts', (req, res) => {
   const { title, category, text } = req.body;
   let newPost = new Post();
@@ -56,6 +59,28 @@ server.post('/posts', (req, res) => {
   });
 });
 
+server.put('/posts/:id', (req, res) => {
+  Post.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
+    if (err) {
+      return res.status(400).json({ error });
+    } else {
+      console.log('update success');
+      res.json(data);
+    }
+  });
+});
+
+server.delete('/posts/:id', (req, res) => {
+  Post.deleteOne({ _id: req.params.id }, function (err, data) {
+    if (err) {
+      return res.status(400).json({ error });
+    } else {
+      console.log('delete post success');
+      res.json(data);
+    }
+  });
+});
+
 server.get('/main/:id', (req, res) => {
   Post.find({ _id: req.params.id }).exec((err, data) => {
     if (err) return res.status(400).json({ err });
@@ -67,16 +92,15 @@ server.get('/test', (_req, res) => {
   res.end('HEllo');
 });
 
-server.put("/main/:id", (req, res) => {
+server.put('/main/:id', (req, res) => {
   Blog.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
     if (err) {
       return res.status(400).json({ error });
     } else {
-      console.log("update success");
+      console.log('update success');
       res.json(data);
     }
   });
 });
-
 
 module.exports = server;

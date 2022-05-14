@@ -1,10 +1,12 @@
 const express = require('express');
-const Post = require('./models/post');
+const Post = require('./models/Post');
 const server = express();
-const Category = require('./models/categories');
-const User = require('./models/user');
+const Category = require('./models/Categories');
+const User = require('./models/User');
+const roleMiddleware = require('./auth/middleware/roleMiddleware');
+const authMiddleware = require('./auth/middleware/authMiddleware');
 
-server.post('/categories', (req, res) => {
+server.post('/categories', roleMiddleware(['admin']), (req, res) => {
   const { title } = req.body;
   let newCat = new Category();
   newCat.title = title;
@@ -18,21 +20,21 @@ server.post('/categories', (req, res) => {
   });
 });
 
-server.get('/categories', (_req, res) => {
+server.get('/categories', authMiddleware, (_req, res) => {
   Category.find({}).exec((err, data) => {
     if (err) return res.status(400).json({ err });
     res.json(data);
   });
 });
 
-server.get('/posts', (_req, res) => {
+server.get('/posts', authMiddleware, (_req, res) => {
   Post.find({}).exec((err, data) => {
     if (err) return res.status(400).json({ err });
     res.json(data);
   });
 });
 
-server.get('/shortPosts', (_req, res) => {
+server.get('/shortPosts', authMiddleware, (_req, res) => {
   Post.find({}).exec((err, data) => {
     if (err) return res.status(400).json({ err });
     res.json(
@@ -40,10 +42,9 @@ server.get('/shortPosts', (_req, res) => {
         return { title: o.title, _id: o._id, category: o.category };
       })
     );
-    //  console.log(data.map(o=>{return {title: o.title, _id: o._id}}))
   });
 });
-server.post('/posts', (req, res) => {
+server.post('/posts', roleMiddleware(['admin']), (req, res) => {
   const { title, category, text } = req.body;
   let newPost = new Post();
   newPost.title = title;
@@ -59,7 +60,7 @@ server.post('/posts', (req, res) => {
   });
 });
 
-server.put('/posts/:id', (req, res) => {
+server.put('/posts/:id', roleMiddleware(['admin']), (req, res) => {
   Post.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
     if (err) {
       return res.status(400).json({ error });
@@ -70,7 +71,7 @@ server.put('/posts/:id', (req, res) => {
   });
 });
 
-server.delete('/posts/:id', (req, res) => {
+server.delete('/posts/:id', roleMiddleware(['admin']), (req, res) => {
   Post.deleteOne({ _id: req.params.id }, function (err, data) {
     if (err) {
       return res.status(400).json({ error });
@@ -81,7 +82,7 @@ server.delete('/posts/:id', (req, res) => {
   });
 });
 
-server.get('/main/:id', (req, res) => {
+server.get('/main/:id', authMiddleware, (req, res) => {
   Post.find({ _id: req.params.id }).exec((err, data) => {
     if (err) return res.status(400).json({ err });
     res.json(data);
@@ -92,7 +93,7 @@ server.get('/test', (_req, res) => {
   res.end('HEllo');
 });
 
-server.put('/main/:id', (req, res) => {
+server.put('/main/:id', roleMiddleware(['admin']), (req, res) => {
   Blog.findByIdAndUpdate(req.params.id, req.body, function (err, data) {
     if (err) {
       return res.status(400).json({ error });

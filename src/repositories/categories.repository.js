@@ -4,13 +4,14 @@ import { categoriesCollection } from "../db.js";
 export const categoriesRepository = {
   async find(id) {
     const findID = new ObjectId(id);
-    
+
     const category = categoriesCollection.findOne({ _id: findID });
 
     return category || null;
   },
   async findAll() {
     const categories = await categoriesCollection.find({}).toArray();
+
     return categories;
   },
   async create(payload) {

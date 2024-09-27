@@ -34,16 +34,16 @@ const authMiddleware = require('./auth/middleware/authMiddleware');
 //   });
 // });
 
-app.get('/shortPosts', authMiddleware, (_req, res) => {
-  Post.find({}).exec((err, data) => {
-    if (err) return res.status(400).json({ err });
-    res.json(
-      data.map((o) => {
-        return { title: o.title, _id: o._id, category: o.category };
-      })
-    );
-  });
-});
+// app.get('/shortPosts', authMiddleware, (_req, res) => {
+//   Post.find({}).exec((err, data) => {
+//     if (err) return res.status(400).json({ err });
+//     res.json(
+//       data.map((o) => {
+//         return { title: o.title, _id: o._id, category: o.category };
+//       })
+//     );
+//   });
+// });
 // app.post('/posts', roleMiddleware(['admin']), (req, res) => {
 //   const { title, category, text } = req.body;
 //   let newPost = new Post();

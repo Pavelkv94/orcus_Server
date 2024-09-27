@@ -4,6 +4,7 @@ export let db;
 export let categoriesCollection;
 export let postsCollection;
 export let usersCollection;
+export let rolesCollection;
 
 export const runDB = async (url) => {
   const client = new MongoClient(url);
@@ -13,6 +14,7 @@ export const runDB = async (url) => {
   categoriesCollection = db.collection("categories");
   postsCollection = db.collection("posts");
   usersCollection = db.collection("users");
+  rolesCollection = db.collection("roles");
 
   try {
     console.log("connected to MongoDB");
@@ -31,4 +33,9 @@ export const clearCategories = async () => {
 
 export const clearPosts = async () => {
   await postsCollection.drop();
+};
+
+export const clearAuth = async () => {
+  await usersCollection.drop();
+  await rolesCollection.drop();
 };

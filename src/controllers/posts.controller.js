@@ -6,6 +6,17 @@ export const postsController = {
 
     res.status(200).send(posts);
   },
+  async getShortPosts(req, res) {
+    const posts = await postsRepository.findAllShort();
+
+    res.status(200).send(posts);
+  },
+  async getPost(req, res) {
+    const post = await postsRepository.find(req.params.id);
+
+    res.status(200).send(post);
+  },
+
   async createPost(req, res) {
     const postId = await postsRepository.create(req.body);
     const post = await postsRepository.find(postId);

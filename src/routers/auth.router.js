@@ -2,6 +2,8 @@ import { Router } from "express";
 import { authController } from "../controllers/auth.controller.js";
 import { body, check } from "express-validator";
 import { inputCheckErrorsMiddleware } from "../middlewares/inputCheckErrorsMiddleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { rolesMiddleware } from "../middlewares/role.middleware.js";
 
 export const authRouter = Router();
 
@@ -15,6 +17,9 @@ authRouter.post(
   inputCheckErrorsMiddleware,
   authController.registration
 );
+authRouter.post("/roles", authMiddleware, rolesMiddleware(["Admin"]), authController.addRole);
+authRouter.get("/users", authMiddleware, rolesMiddleware(["Admin"]), authController.getUsers);
+authRouter.get("/me/:username", authMiddleware, rolesMiddleware(["User", "Admin"]), authController.getUser);
 
 // router.post(
 //   "/registration",

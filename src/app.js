@@ -19,6 +19,16 @@ app.use(cors({ origin: "*" })); //!------CORS DANGER
 
 app.use(express.json());
 
+app.use(
+  express.static("public", {
+    setHeaders: function setHeaders(res, path, stat) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+      res.header("Access-Control-Allow-Headers", "Content-Type");
+    },
+  })
+);
+
 app.use("/auth", authRouter);
 app.use("/categories", categoriesRouter);
 app.use("/posts", postsRouter);

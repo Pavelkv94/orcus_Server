@@ -33,6 +33,6 @@ app.use("/auth", authRouter);
 app.use("/categories", categoriesRouter);
 app.use("/posts", postsRouter);
 
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).json({ version: "1.1" });
   });

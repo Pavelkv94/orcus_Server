@@ -15,18 +15,24 @@ dotenv.config();
 
 runDB(url);
 
-app.use(cors({ origin: process.env.CLIENT_URL })); 
+app.use(
+    cors({
+        credentials: true,
+        origin: process.env.CLIENT_URL,
+        allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    })
+);
 
 app.use(express.json());
 
 app.use(
-  express.static("public", {
-    setHeaders: function setHeaders(res, path, stat) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-    },
-  })
+    express.static("public", {
+        setHeaders: function setHeaders(res, path, stat) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+            res.header("Access-Control-Allow-Headers", "Content-Type");
+        },
+    })
 );
 
 app.use("/auth", authRouter);
@@ -35,4 +41,4 @@ app.use("/posts", postsRouter);
 
 app.get("/", (req, res) => {
     res.status(200).json({ version: "1.1" });
-  });
+});

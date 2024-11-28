@@ -15,7 +15,7 @@ jobs:
       
       - name: Check out repository code
         run: |
-          git clone "http://10.0.0.2:3010/akiro/Cryptowave-server.git" orcus-server-repo
+          git clone "http://10.0.0.2:3010/akiro/orcus_Server.git" orcus-server-repo
           cd orcus-server-repo
           echo "💡 The repository has been cloned to the runner."          
 

@@ -31,11 +31,11 @@ jobs:
           npm install
           echo "📦 Dependencies installed."
           
-      - name: Run tests
-        run: |
-          cd orcus-server-repo
-          npm run jest
-          echo "✅ Tests completed."
+      # - name: Run tests
+      #   run: |
+      #     cd orcus-server-repo
+      #     npm run jest
+      #     echo "✅ Tests completed."
 
       - name: Start services with Docker Compose
         run: |

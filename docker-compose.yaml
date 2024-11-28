@@ -1,0 +1,18 @@
+services:
+  orcus-server:
+    container_name: orcus-server
+    networks:
+      - mongo_mongo-network
+    build:
+      context: .
+    environment:
+      DB_NAME: $DB_NAME
+      MONGO_URL: $MONGO_URL
+      PORT: $PORT
+      JWT_ACCESS_SECRET: $JWT_ACCESS_SECRET
+      CLIENT_URL: $CLIENT_URL
+    ports:
+      - 5003:5000
+networks:
+  mongo_mongo-network:
+    external: true

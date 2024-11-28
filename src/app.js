@@ -15,7 +15,7 @@ dotenv.config();
 
 runDB(url);
 
-app.use(cors({ origin: "*" })); //!------CORS DANGER
+app.use(cors({ origin: process.env.CLIENT_URL })); 
 
 app.use(express.json());
 

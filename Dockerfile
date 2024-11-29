@@ -1,11 +1,10 @@
-FROM node:18-alpine
+FROM node:18-slim
 
 WORKDIR /app
 
 COPY package.json /app/
-
 RUN npm install
 
 COPY . .
 
-CMD ["node", "./src/index.js"]
+CMD ["npm", "run", "start"]

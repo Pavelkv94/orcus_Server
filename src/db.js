@@ -11,22 +11,27 @@ export const runDB = async (url) => {
 
   db = client.db(process.env.DB_NAME);
 
-  categoriesCollection = db.collection("categories");
-  postsCollection = db.collection("posts");
-  usersCollection = db.collection("users");
-  rolesCollection = db.collection("roles");
-
   try {
-    console.log("connected to MongoDB");
-    await client.connect();
+    console.log("Attempting to connect to MongoDB...");
+    console.log(`MongoDB URL: ${url}`);
+    console.log(`Database Name: ${process.env.DB_NAME}`);
+    await client.connect(); // Add this log to ensure the connection step completes
+    console.log("MongoDB Connected");
+
+    categoriesCollection = db.collection("categories");
+    postsCollection = db.collection("posts");
+    usersCollection = db.collection("users");
+    rolesCollection = db.collection("roles");
+    console.log("Collections initialized");
+
     return true;
   } catch (e) {
-    console.log(e);
+    console.error("Error during MongoDB connection:", e.message);
+    console.error("Stack Trace:", e.stack);
     await client.close();
     return false;
   }
 };
-
 export const clearCategories = async () => {
   await categoriesCollection.drop();
 };

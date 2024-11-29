@@ -16,11 +16,14 @@ dotenv.config();
 runDB(url);
 
 app.use(
-    cors({
-        credentials: true,
-        origin: process.env.CLIENT_URL,
-        allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-    })
+    cors(
+        { origin: "*" }
+    //     {
+    //     credentials: true,
+    //     origin: process.env.CLIENT_URL,
+    //     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    // }
+)
 );
 
 app.use(express.json());

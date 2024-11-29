@@ -17,12 +17,11 @@ runDB(url);
 
 app.use(
     cors(
-        { origin: "*" }
-    //     {
-    //     credentials: true,
-    //     origin: process.env.CLIENT_URL,
-    //     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-    // }
+        {
+        credentials: true,
+        origin: process.env.CLIENT_URL,
+        allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    }
 )
 );
 

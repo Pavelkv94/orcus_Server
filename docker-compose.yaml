@@ -17,6 +17,7 @@ services:
       resources:
         limits:
           memory: 512M
+    restart: unless-stopped
 
 networks:
   mongo_mongo-network:
